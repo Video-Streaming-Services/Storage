@@ -1,6 +1,7 @@
 package com.videostreaming.storage.util;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.AwsCredentials;
 import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider;
@@ -13,16 +14,16 @@ import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import java.io.IOException;
 import java.io.InputStream;
 
+@Service
 public class S3Util {
-    @Value("${aws.bucketName}")
-    private static String BUCKET;
-    @Value("${aws.accessKey}")
-    private static String accessKey;
-    @Value("${aws.accessSecret}")
-    private static String accessSecret;;
+    @Value("${bucketName}")
+    private String BUCKET;
+    @Value("${accessKey}")
+    private String accessKey;
+    @Value("${accessSecret}")
+    private String accessSecret;
 
-    public static void uploadFile(String fileName, InputStream inputStream) throws IOException {
-
+    public void uploadFile(String fileName, InputStream inputStream) throws IOException {
         AwsCredentials credentials = AwsBasicCredentials.create(accessKey,accessSecret);
         AwsCredentialsProvider awsCredentialsProvider = StaticCredentialsProvider.create(credentials);
         S3Client s3Client = S3Client.builder()
