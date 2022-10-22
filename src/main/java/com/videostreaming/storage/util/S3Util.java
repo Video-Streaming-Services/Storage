@@ -1,5 +1,6 @@
 package com.videostreaming.storage.util;
 
+import org.springframework.beans.factory.annotation.Value;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.AwsCredentials;
 import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider;
@@ -13,10 +14,12 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class S3Util {
-
-    private static final String BUCKET = "atypon-video-stream";
-    private static final String accessKey = "AKIAURDUIPGQQCX6WW6D";
-    private static final String accessSecret = "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";
+    @Value("${aws.bucketName}")
+    private static String BUCKET;
+    @Value("${aws.accessKey}")
+    private static String accessKey;
+    @Value("${aws.accessSecret}")
+    private static String accessSecret;;
 
     public static void uploadFile(String fileName, InputStream inputStream) throws IOException {
 
